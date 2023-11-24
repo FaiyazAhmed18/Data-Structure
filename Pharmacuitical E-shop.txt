@@ -1,0 +1,318 @@
+#include<iostream>
+
+using namespace std;
+
+struct essential
+{
+    string name;
+    int price;
+    int quantity;
+    //int stock_status;
+    //if // for struck
+};
+struct node{
+    int value;
+    node *next;
+    node *prev;
+};
+
+node* head = NULL;
+node* tail = NULL;
+
+void insertion(essential number[])    //information each product stored in each in index of arrey named "number"
+{
+    number[0].name = "Thermometer";   //name of the product stored
+    number[0].price = 20;             //price of the product stored
+    number[0].quantity = 140;         //quantity available stored
+
+    number[1].name = "Gloves";
+    number[1].price = 500;
+    number[1].quantity = 200;
+
+    number[2].name = "Mask";
+    number[2].price = 200;
+    number[2].quantity = 200;
+
+    number[3].name = "Ventilator";
+    number[3].price = 500000;
+    number[3].quantity = 40;
+
+    number[4].name = "Cylinder";
+    number[4].price = 550;
+    number[4].quantity = 40;
+
+    number[5].name = "Ambu bag";
+    number[5].price = 2500;
+    number[5].quantity = 120; //500ml each piece
+
+    number[6].name = "Oximeter";
+    number[6].price = 450;
+    number[6].quantity = 150;
+
+    number[7].name = "Nebulizer";
+    number[7].price = 950;
+    number[7].quantity = 70;
+
+    number[8].name = "NAE kit"; //Nucleic Acid Extraction Kit
+    number[8].price = 150;
+    number[8].quantity = 200;
+
+    number[9].name = "Test kit"; //COVID-19 Test Kit Antibody, including rapid tests
+    number[9].price = 250;
+    number[9].quantity = 500;
+
+
+    number[10].name = "Azyth";
+    number[10].price = 550;
+    number[10].quantity = 200;
+
+    number[11].name = "Moxaclay";
+    number[11].price = 320;
+    number[11].quantity = 200;
+
+    number[12].name = "Doxicap";
+    number[12].price = 22;
+    number[12].quantity = 200;
+
+    number[13].name = "Doxiva";
+    number[13].price = 60;
+    number[13].quantity = 200;
+
+    number[14].name = "Monas";
+    number[14].price = 150;
+    number[14].quantity = 200;
+
+    number[15].name = "Napa Extra";
+    number[15].price = 15;
+    number[15].quantity = 200;
+
+    number[16].name = "Scabo";
+    number[16].price = 100;
+    number[16].quantity = 200;
+
+    number[17].name = "Fexo";
+    number[17].price = 80;
+    number[17].quantity = 200;
+
+    number[18].name = "Maxpro";
+    number[18].price = 90;
+    number[18].quantity = 200;
+
+    number[19].name = "Omidon";
+    number[19].price = 20;
+    number[19].quantity = 200;
+
+    number[20].name = "Calbo D";
+    number[20].price = 70;
+    number[20].quantity = 200;
+
+    number[21].name = "Rex";
+    number[21].price = 30;
+    number[21].quantity = 200;
+
+    number[22].name = "Xinc";
+    number[22].price = 18;
+    number[22].quantity = 200;
+
+    number[23].name = "Aspirine";// or lopire(750mg)
+    number[23].price = 4;
+    number[23].quantity = 200;
+
+    number[24].name = "Antiviral";
+    number[24].price = 250;
+    number[24].quantity = 200;
+
+    number[25].name = "Anticoagulant";
+    number[25].price = 250;
+    number[25].quantity = 200;
+
+}
+void increasre_for_restock( essential number[]);
+void decrease_for_order( essential number[]);
+void print_for_customer(essential number[]);
+void print_for_admin(essential number[]);
+
+
+void insert_at_the_end(int index_to_change)  //linked list to store integer value which is the number of index of the of the essentials(product)
+{
+    node* new_node = new node;
+    new_node->value = index_to_change;
+    new_node->next = NULL;
+    new_node->prev = NULL;  //doubly linked list
+
+    if(head==NULL && tail==NULL) {
+       head = new_node;
+       tail = new_node;
+    }
+    else{
+        node* current_node = head;
+        while(current_node->next!=NULL) {
+            current_node = current_node->next;
+        }
+        current_node->next = new_node;
+        new_node->prev = current_node;
+        tail = new_node;
+    }
+}
+void customer_order_list()      // printing the value of linked list as it is stored according to the order
+{
+    if(head==NULL) {
+       cout<<"list is empty\n";
+    }
+    else{
+        node* current_node = head;
+        while(current_node!=NULL) {
+            cout<<current_node->value<<endl;
+            current_node = current_node->next;
+        }
+    }
+}
+int main ()
+{
+    essential number[26];
+    insertion(number);
+    cout<<"1. Admin.\n2. Guest(customer)\n0. EXIT"<<endl;
+    cout<<"Enter an option to choose"<<endl;
+    int i;
+    cin>>i;
+    cout<<endl;
+    while(i>=1){
+
+        if (i==1)
+        {
+            print_for_admin(number);
+            increasre_for_restock(number);
+        }
+        else if (i==2)
+        {
+            print_for_customer(number);
+            decrease_for_order(number);
+
+        }
+        else
+        {
+            cout<<"Invalid number"<<endl;
+        }
+        cout<<"\n1. Admin."<<endl<<"2. Guest(customer)"<<endl<<"0. EXIT"<<endl;
+        cin>>i;
+        cout<<endl;
+    }
+            cout<<"Thank You for visiting"<<endl;
+
+    //print_for_admin(number);
+    //increasre_for_restock(number);
+    //decrease_for_order(number);
+    //print_for_admin(number);
+    //print_for_customer(number);
+
+}
+
+void increasre_for_restock( essential number[])
+{
+    int index_to_change;
+    cout<<"Enter the number to select the product"<<endl;
+    cin>>index_to_change;
+
+    if (index_to_change==26)
+    {
+        return;
+    }
+    else if (number[index_to_change].quantity==0)
+
+    {
+        int num_to_increase;
+        cout<<"Enter the number of stock to increase"<<endl;
+        cin>>num_to_increase;
+
+        number[index_to_change].quantity=number[index_to_change].quantity+num_to_increase;
+
+        cout<<number[index_to_change].quantity<<endl;// shall be changed, using to check
+        if (number[index_to_change].quantity>49)
+        {
+            cout<<"sufficient essentials restocked"<<endl;
+        }
+    }
+    else
+    {
+        int num_to_increase;
+        cout<<"Enter the number of stock to increase"<<endl;
+        cin>>num_to_increase;
+
+        number[index_to_change].quantity=number[index_to_change].quantity+num_to_increase;
+        cout<<number[index_to_change].quantity<<endl;// shall be changed, using to check
+    }
+    increasre_for_restock(number);
+}
+
+
+void decrease_for_order(essential number[]) //
+{
+    int index_to_change;
+    cout<<"Enter the number to select the product"<<endl;
+    cin>>index_to_change;
+    if (index_to_change==26)
+    {
+        cout<<"Your order, item no. "<<endl;
+        customer_order_list();
+        cout<<"Please write your cell phone number"<<endl;
+        int cell_num;
+        cin>>cell_num;
+        insert_at_the_end(cell_num);
+        return ;
+    }
+    else if (number[index_to_change].quantity==0)
+    {
+        cout<<"This product is not available at the moment. Check after restock to order"<<endl;
+    }
+    else if(number[index_to_change].quantity<50)
+    {
+        cout<<"Stock almost out, do not waste or order if not emergency"<<endl;
+
+        number[index_to_change].quantity=number[index_to_change].quantity - 1;
+
+    insert_at_the_end(index_to_change);
+
+    }
+    else
+    {
+        cout<<"Order confirmed"<<endl;
+        number[index_to_change].quantity=number[index_to_change].quantity - 1;
+    insert_at_the_end(index_to_change);
+    }
+decrease_for_order(number);
+}
+
+
+void print_for_customer(essential number[])
+{
+    for(int i=0;i<25;i++)
+    {
+        if (i<10)
+        {
+            cout<<i<<".  "<<number[i].name<<"    "<<number[i].price<<endl;
+        }
+        else
+        {
+            cout<<i<<". "<<number[i].name<<"    "<<number[i].price<<endl;
+        }
+    }
+    cout<<"\n26. Main menu.\n"<<endl;
+}
+
+void print_for_admin(essential number[])
+{
+    for(int i=0;i<26;i++)
+    {
+        if (i<10)
+        {
+            cout<<i<<".  "<<number[i].name<<"    "<<number[i].price<<"    "<<number[i].quantity<<endl;
+        }
+        else
+        {
+            cout<<i<<". "<<number[i].name<<"    "<<number[i].price<<"    "<<number[i].quantity<<endl;
+        }
+    }
+    cout<<"\n26. Main menu.\n"<<endl;
+}
+
+
